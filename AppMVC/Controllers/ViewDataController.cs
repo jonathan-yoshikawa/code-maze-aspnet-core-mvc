@@ -10,13 +10,14 @@ namespace AppMVC.Controllers
     {
         public IActionResult Index()
         {
-            ViewData["UserId"] = 101;
+            ViewData["UserId"] = 101;         
             return View();
         }
-
+        
+        [Route("viewdata/pessoa")]
         public JsonResult Person()
         {
-            var person = new { Nome = "Jonathan", Idade = 34, Sexo = "Masculino" };
+            var person = new { Id = ViewData["UserId"], Nome = "Jonathan", Idade = 34, Sexo = "Masculino", Altura = "1.71" };
 
             return Json(person);
             

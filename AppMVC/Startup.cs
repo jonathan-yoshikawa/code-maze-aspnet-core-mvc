@@ -9,6 +9,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AppMVC.Data;
+using AppMVC.Models;
+using AppMVC.Repositories.Interfaces;
+using AppMVC.Repositories;
+using AppMVC.Services;
 
 namespace AppMVC
 {
@@ -30,6 +34,10 @@ namespace AppMVC
 
             services.AddDbContext<AppMVCContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("AppMVCContext")));
+
+            services.AddScoped<IDataRepository<Employee>, EmployeeManager>();
+
+            services.AddTransient<BooksLookupService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

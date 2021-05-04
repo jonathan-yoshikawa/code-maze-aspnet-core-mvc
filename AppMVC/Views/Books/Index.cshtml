@@ -1,8 +1,10 @@
 ﻿@model IEnumerable<AppMVC.Models.Book>
+@inject AppMVC.Services.BooksLookupService BooksLookupService
 
 @{
     ViewData["Title"] = "Index";
-    Book firstBook = Model.ToList().FirstOrDefault();    
+    Book firstBook = Model.ToList().FirstOrDefault();
+    var genres = BooksLookupService.GetGenres();
 }
 
 <h1>Index</h1>
@@ -42,7 +44,21 @@
                     <label>@item.Title</label>
                 </td>
                 <td>
-                    <label>@item.Genre</label>
+
+                    <select class="form-control">
+                        @foreach (string genre in genres)
+                        {
+                            if (genre.Equals(item.Genre))
+                            {
+                                <option selected> @genre </option>
+                            }
+                            else
+                            {
+                                <option> @genre </option>
+                            }
+                        }
+                    </select>
+
                 </td>
                 <td>
                     <label>@item.Price</label>

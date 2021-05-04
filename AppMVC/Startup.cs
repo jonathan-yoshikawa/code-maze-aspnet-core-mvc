@@ -38,6 +38,9 @@ namespace AppMVC
             services.AddScoped<IDataRepository<Employee>, EmployeeManager>();
 
             services.AddTransient<BooksLookupService>();
+
+            services.AddControllersWithViews(config =>
+                 config.Filters.Add(typeof(CustomExceptionFilter)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,5 @@
-﻿using AppMVC.Models;
+﻿using AppMVC.Filters;
+using AppMVC.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -54,6 +55,28 @@ namespace AppMVC.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [Authorize("Read")]
+        public IActionResult Read()
+        {
+            return View();
+        }
+        [Authorize("Write")]
+        public IActionResult Edit()
+        {
+            return View();
+        }
+
+        public IActionResult GenerateError()
+        {
+            throw new NotImplementedException("Error proposital");
+        }
+
+        [AddHeader]
+        public IActionResult TestResultFilter()
+        {
+            return View();
         }
     }
 }

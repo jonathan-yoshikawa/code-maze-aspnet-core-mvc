@@ -15,10 +15,22 @@ namespace AppMVC.Controllers
         {
             _dataRepository = dataRepository;
         }
+
         public IActionResult Index()
         {
             IEnumerable<Employee> employees = _dataRepository.GetAll();
             return View(employees);
+        }
+
+        [HttpPost]
+        public IActionResult Add(Employee employee)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            _dataRepository.Add(employee);
+            return RedirectToAction(actionName: nameof(Index));
         }
     }
 }
